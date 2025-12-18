@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('adminDashboard.layouts.master')
 @section('css')
 @endsection
 @section('page-header')

@@ -1,17 +1,33 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{page}', [AdminController::class, 'index']);
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+Route::resource('products', ProductController::class);
+Route::patch('/products/{product}/toggle-special', [ProductController::class, 'toggleSpecial'])
+    ->name('products.toggle-special');
+
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('orders', OrderController::class);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,4 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+Route::get('/test', function () {
+    return view('adminDashboard.form-advanced');
+});
+
+
 require __DIR__.'/auth.php';
+
+Route::get('/{page}', [AdminController::class, 'index']);
