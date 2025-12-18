@@ -9,6 +9,14 @@ class Contact_Message extends Model
     protected $fillable = [
         'name',
         'phone',
-        'message'
+        'message',
+        'is_read',
     ];
+
+    public function markAdRead()
+    {
+        if(! $this->is_read){
+            $this->update(['is_read' => true]);
+        };
+    }
 }
